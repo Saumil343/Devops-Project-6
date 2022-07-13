@@ -22,7 +22,7 @@ Tools Used :
 3) Creating a ansible playbook which runs on webserver ec2 instance and creates a docker image and runs it.
 
 
-- 1) Creating simple webhook CI
+1) Creating simple webhook CI
 -  Go to Dashboard
 - create new item and give it a name and select Free Style Project
 - Go to general section and scroll to Source Code Management Section and select git and add your git repo link of the project to be deployed.
@@ -35,7 +35,7 @@ Tools Used :
 - Example
 ![image](https://user-images.githubusercontent.com/53990452/178780466-c1961ce5-dd09-4277-89b1-da0232611e66.png)
 
-- 2) Creating a deployment job
+2) Creating a deployment job
 - For this example to run we need to have a git repo with the required files that are 1)ansible Playbook 2) Inverntory to run 3) Dockerfile in the git repo of our project to be deployed
 
 - Now go to jenkins dashboard
@@ -117,7 +117,7 @@ EXPOSE 3000
 CMD ["node", "index.js"]
 ```
 
-- 5) Ansible playbook which pulls the latest code and kills, creates the container 
+5) Ansible playbook which pulls the latest code and kills, creates the container 
 ```
 ---
 - hosts: 172.31.36.60
