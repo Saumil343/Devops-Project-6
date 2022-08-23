@@ -1,4 +1,4 @@
-# Devops-Project-3
+# Devops-Project-6
 In this project i made a ci/cd pipeline using jenkins and deployed a web app to apache server using ansible and docker.
 Tools Used :
 
@@ -10,16 +10,20 @@ Tools Used :
 
 - Aws Ec2
 
-- Docker
+- Docker Container 
+
+- AWS RDS
 
 - <b> Work Flow </b>
-- ![devops-project-3 drawio](https://user-images.githubusercontent.com/53990452/178779349-933a6fab-73a2-43e8-b6fb-1970e3990677.png)
+- ![178779349-933a6fab-73a2-43e8-b6fb-1970e3990677 (1) drawio](https://user-images.githubusercontent.com/53990452/186216844-8589464f-3c8f-460b-b517-ea0354c2074e.png)
 
 - <b> Steps Involved </b>
 
 1) Creating Simple webhook CI on jenkins for github
-2) Using a test repo with node hello world program which also includes ansible playbook,ansible host file and Dockerfile , Link to repo used in project : https://github.com/Saumil343/test2.git (master branch)
+2) Using a test repo with node hello world program which also includes ansible playbook,ansible host file and Dockerfile , Link to repo used in project : https://github.com/Saumil343/test5.git (master branch)
 3) Creating a ansible playbook which runs on webserver ec2 instance and creates a docker image and runs it.
+4) AWS RDS Configure and Connect
+
 
 
 1) Creating simple webhook CI
@@ -84,12 +88,12 @@ pipeline{
    stages{
        stage("git checks"){
            steps{
-               git branch: 'main', url: 'https://github.com/Saumil343/test2.git'
+               git branch: 'main', url: 'https://github.com/Saumil343/test5.git'
            }
        }
        stage("Ansible playbook"){
            steps{
-               ansiblePlaybook credentialsId: '91fda46f-c50f-40ce-bab7-8a965994c32b', disableHostKeyChecking: true, installation: 'ansible1', inventory: 'hosts', playbook: 'ansible-docker.yml'
+               ansiblePlaybook credentialsId: '91fda46f-c50f-40ce-bab7-8a965994c32b', disableHostKeyChecking: true, installation: 'ansible1', inventory: 'hosts', playbook: 'aws-php.yml'
            }
        }
    }
@@ -102,19 +106,12 @@ now as soon as someting has changed in our git repo the change will be detected 
 
 4) Docker file :
 ```
-FROM node:latest
-
-WORKDIR /app
-
-COPY package.json .
-
-RUN npm install
-
-COPY . . 
-
-EXPOSE 3000
-
-CMD ["node", "index.js"]
+FROM amazonlinux
+RUN yum install httpd php-5.4.16 php-mysqlnd -y
+RUN systemctl enable httpd
+COPY . /var/www/html
+CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
+EXPOSE 80
 ```
 
 5) Ansible playbook which pulls the latest code and kills, creates the container 
@@ -123,18 +120,19 @@ CMD ["node", "index.js"]
 - hosts: 172.31.36.60
   tasks:
     - name: cleaning files
-      shell: rm -rf ~/test2
+      shell: rm -rf ~/test5
 
     - name: pull
-      shell: git clone -b master https://github.com/Saumil343/test2.git
+      shell: git clone https://github.com/Saumil343/test5.git
 
     - name: docker kill
-      shell: docker stop nodeapp2 || true && docker rm nodeapp2 || true
+      shell: docker stop phpapp4 || true && docker rm phpapp4 || true
     
     - name: docker build
-      shell: docker build -t saumil343/demoapp4 ~/test2/
+      shell: docker build -t saumil343/demoapp5 ~/test5/
       
     - name: docker run 
-      shell: docker run -it -d --name nodeapp2 -p 3000:3000 saumil343/demoapp4
+      shell: docker run -it -d --name phpapp4 -p 3200:80 saumil343/demoapp5
+
 
 ```
