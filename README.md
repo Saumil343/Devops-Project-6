@@ -136,3 +136,8 @@ EXPOSE 80
 
 
 ```
+
+6) AWS RDS INSTANCE 
+- i used mysql database and created a t3.micro rds instande along with mysql versin 5.6
+- [image](https://user-images.githubusercontent.com/53990452/186218602-bb7d1a8a-2769-4a03-b4a9-0682ca69e19b.png)
+
