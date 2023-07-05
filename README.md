@@ -1,6 +1,6 @@
 # Devops-Project-6
-In this project i made a ci/cd pipeline using jenkins and deployed a web app to apache server using ansible and docker.
-Tools Used :
+- In this workshop, I will guide you through the process of setting up a CI/CD pipeline using Jenkins, Ansible, Docker, and AWS services.
+  the objective is to deploy a web application to an Apache server running on an AWS EC2 instance and using database service from AWS to make it a full three-tier web application.
 
 - Git
 
@@ -140,4 +140,16 @@ EXPOSE 80
 6) AWS RDS INSTANCE 
 - i used mysql database and created a t3.micro rds instande along with mysql versin 5.6
  ![image](https://user-images.githubusercontent.com/53990452/186218602-bb7d1a8a-2769-4a03-b4a9-0682ca69e19b.png)
+
+
+
+<b> Conclusion </b>
+Congratulations! You have successfully set up a CI/CD pipeline using Jenkins, Ansible, Docker, and AWS services. By following the steps outlined in this workshop, you can automate the deployment of your web application to an Apache server running on an AWS EC2 instance. Feel free to explore additional features and customizations to further enhance your CI/CD workflow.
+
+Note: Please refer to the original screenshots for a visual representation of the steps outlined above.
+
+
+
+
+
 
